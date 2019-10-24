@@ -1,0 +1,39 @@
+{
+  "name": "payex-rest",
+  "version": "0.1.0",
+  "description": "Payex REST API wrapper",
+  "keywords": [
+    "payex",
+    "payment processing",
+    "credit cards",
+    "api"
+  ],
+  "author": "Urban Infrastructure Partner <developer@urbansharing.com> (http://urbansharing.com)",
+  "contributors": [
+    "Pavel Fediukovich <pavel@urbansharing.com>"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^24.0.19",
+    "@types/nock": "^11.1.0",
+    "@types/node": "^12.11.6",
+    "copyfiles": "^2.1.1",
+    "eslint": "^6.5.1",
+    "eslint-config-prettier": "^6.4.0",
+    "gts": "^1.1.0",
+    "jest": "^24.9.0",
+    "nock": "^11.6.0",
+    "npm-run-all": "^4.1.5",
+    "ts-jest": "^24.1.0",
+    "typescript": "^3.6.4"
+  },
+  "dependencies": {
+    "@types/axios": "^0.14.0",
+    "axios": "^0.19.0",
+    "typed-rest-client": "^1.5.0"
+  }
+}
