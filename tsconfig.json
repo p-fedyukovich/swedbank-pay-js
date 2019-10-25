@@ -4,13 +4,12 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "experimentalDecorators": true,
-    "rootDir": "src",
-    "outDir": "built",
+    "rootDir": "lib",
+    "outDir": "build",
     "lib": [
-      "es2017",
-      "dom"
+      "es2017"
     ],
     "skipLibCheck": false,
-    "declaration": false
+    "declaration": true
   }
 }

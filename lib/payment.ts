@@ -1,4 +1,5 @@
 import { RestClient } from 'typed-rest-client/RestClient'
+import { CurrencyEnum } from './currency'
 
 /**
  * Determines the initial operation, that defines the type card payment created.
@@ -7,42 +8,42 @@ enum OperationType {
     /**
      * Used to charge a card. It is followed up by a capture or cancel operation.
      */
-    Purchase,
+    Purchase = 'Purchase',
     /**
      * Used to charge a card on a recurring basis. Is followed up by a capture or
      * cancel operation (if not Autocapture is used, that is).
      */
-    Recur,
+    Recur = 'Recur',
     /**
      * Used to deposit funds directly to credit card. No more requests are necessary from the merchant side.
      */
-    Payout,
+    Payout = 'Payout',
     /**
      * Used when authorizing a card withouth reserveing any funds.  It is followed up by a verification transaction.
      */
-    Verify
+    Verify = 'Verify'
 }
 
 /**
  * The intent of the payment identifies how and when the charge will be effectuated.
  * This determine the type transactions used during the payment process.
  */
-enum IntentType {
+export enum IntentType {
     /**
      * Holds the funds for a certain time in contrast to reserving the amount.
      * A preauthoriations is always followed by the finalize operation
      */
-    PreAuthorization,
+    PreAuthorization = 'PreAuthorization',
 
     /**
      * Reserves the amount, and is followed by a cancellation or capture of funds.
      */
-    Authorization,
+    Authorization = 'Authorization',
 
     /**
      * A one phase option that enable capture of funds automatically after authorization.
      */
-    AutoCapture
+    AutoCapture = 'AutoCapture'
 }
 
 interface CreatePaymentRequest {
@@ -51,7 +52,6 @@ interface CreatePaymentRequest {
 
 interface PaymentRequest {
     operation: OperationType
-    intent: IntentType
 }
 
 interface CreatePaymentResponse {
@@ -59,26 +59,14 @@ interface CreatePaymentResponse {
 }
 
 interface PaymentResponse {
-    operation: OperationType
-    intent: IntentType
-}
-
-enum PaymentState {
-    Ready
-}
-
-interface PurchaseResponse extends PaymentResponse {
     id: string
+    operation: OperationType
     number: number
-    instrument: CreditCardType,
+    amount: number
     created: string
     updated: string
     state: PaymentState
     currency: CurrencyEnum
-    amount: number
-    remainingCaptureAmount: number
-    remainingCancellationAmount: number
-    remainingReversalAmount: number
     description: string
     payerReference: string
     initiatingSystemUserAgent: string
@@ -86,33 +74,18 @@ interface PurchaseResponse extends PaymentResponse {
     language: LanguageEnum
 }
 
-enum CurrencyEnum {
-    /**
-     * Norwegian krone
-     */
-    NOK,
-    /**
-     * Swedish krona
-     */
-    SEK,
-    /**
-     * Danish krone
-     */
-    DKK,
-    /**
-     * United States dollar
-     */
-    USD,
-    /**
-     * Euro
-     */
-    EUR
+export interface PurchaseResponse extends PaymentResponse {
+    intent: IntentType
+    instrument: CreditCardType
+    remainingCaptureAmount: number
+    remainingCancellationAmount: number
+    remainingReversalAmount: number
 }
 
 enum CreditCardType {
-    CreditCard,
-    Visa,
-    MasterCard
+    CreditCard = 'CreditCard',
+    Visa = 'Visa',
+    MasterCard = 'MasterCard'
 }
 
 interface Price {
@@ -138,9 +111,9 @@ interface Price {
 }
 
 enum LanguageEnum {
-    nb='nb-NO',
-    sv='sv-SE',
-    en='en-US'
+    nb = 'nb-NO',
+    sv = 'sv-SE',
+    en = 'en-US'
 }
 
 interface Urls {
@@ -209,23 +182,15 @@ interface PayeeInfo {
      * The subsites must be resolved with PayEx reconciliation before being used.
      * Max 40 characters.
      */
-    subsite: string
+    subsite?: string
 }
 
 interface Metadata {
     [name: string]: string | number | boolean
 }
 
-interface PurchaseInput {
-    intent: IntentType
-    /**
-     * If you put in a paymentToken here, the payment page will preload the stored payment data
-     * related to the paymentToken and let the consumer make a purchase without having to enter all card data.
-     * This is called a "One Click" purchase.
-     */
-    paymentToken?: string
+interface PaymentInput {
     currency: CurrencyEnum
-    prices: Price
     /**
      * A textual description max 40 characters of the purchase.
      */
@@ -234,6 +199,24 @@ interface PurchaseInput {
      * The reference to the payer (consumer/end user) from the merchant system. E.g mobile number, customer number etc.
      */
     payerReference?: string
+    /**
+     * The user agent reference of the consumer's browser
+     */
+    userAgent: string
+    language: LanguageEnum
+    urls: Urls
+    payeeInfo: PayeeInfo
+}
+
+export interface PurchaseInput extends PaymentInput {
+    intent: IntentType
+    /**
+     * If you put in a paymentToken here, the payment page will preload the stored payment data
+     * related to the paymentToken and let the consumer make a purchase without having to enter all card data.
+     * This is called a "One Click" purchase.
+     */
+    paymentToken?: string
+    prices: Price
     /**
      * Set this to true if you want to create a paymentToken for future use as One Click.
      */
@@ -244,22 +227,41 @@ interface PurchaseInput {
      */
     generateRecurrenceToken?: boolean
     /**
-     * The user agent reference of the consumer's browser
-     */
-    userAgent: string
-    language: LanguageEnum
-    urls: Urls
-
-    payeeInfo: PayeeInfo
-    /**
      * The keys and values that should be associated with the payment.
      * Can be additional identifiers and data you want to associate with the payment.
      */
     metadata: Metadata
 }
 
+export interface VerifyInput extends PaymentInput {
+    /**
+     * Set this to true if you want to create a paymentToken for future use as One Click.
+     */
+    generatePaymentToken?: boolean
+    /**
+     * Set this to true if you want to create a recurrenceToken for future
+     * use Recurring purchases (subscription payments).
+     */
+    generateRecurrenceToken?: boolean
+}
+
+export interface RecurInput extends PaymentInput {
+    intent: IntentType
+    recurrenceToken: string
+    /**
+     * Amount is entered in the lowest monetary units of the selected currency.
+     * E.g. 10000 = 100.00 NOK, 5000 = 50.00 SEK.
+     */
+    amount: number
+    vatAmount: number
+}
+
+enum PaymentState {
+    Ready = 'Ready'
+}
+
 export class Payment {
-    private static readonly RESOURCE = 'payment/credit-card'
+    private static readonly RESOURCE = 'creditcard/payments'
 
     private readonly _client: RestClient
 
@@ -277,6 +279,43 @@ export class Payment {
             payment: {
                 operation: OperationType.Purchase,
                 ...purchaseInput
+            }
+        })
+        if (response) {
+          return response.payment as PurchaseResponse
+        }
+        return null
+    }
+
+    /**
+     * A Verify payment lets you post verifications to confirm the validity of card information,
+     * without reserving or charging any amount. This option is often used to initiate a recurring payment flow
+     * where you do not want to charge the consumer right away.
+     * @param {VerifyInput} verifyInput
+     */
+    public async verify(verifyInput: VerifyInput): Promise<PaymentResponse | null> {
+        const response = await this.create({
+            payment: {
+                operation: OperationType.Verify,
+                ...verifyInput
+            }
+        })
+        if (response) {
+          return response.payment
+        }
+        return null
+    }
+
+    /**
+     * A Recur payment is a payment that references a recurrenceToken created through
+     * a previous payment in order to charge the same card.
+     * @param {RecurInput} recurInput
+     */
+    public async recur(recurInput: RecurInput): Promise<PurchaseResponse | null> {
+        const response = await this.create({
+            payment: {
+                operation: OperationType.Recur,
+                ...recurInput
             }
         })
         if (response) {

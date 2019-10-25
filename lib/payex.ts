@@ -1,28 +1,36 @@
 import { BearerCredentialHandler } from 'typed-rest-client/Handlers'
-import * as rm from 'typed-rest-client/RestClient'
+import { IRequestOptions } from 'typed-rest-client/Interfaces'
 import { RestClient } from 'typed-rest-client/RestClient'
 import { Payment } from './payment'
 
-const BASE_URL = 'api.payex.com'
+// TODO update user agent
 const USER_AGENT = 'urbaninfrastructure'
 
 class Payex {
-    private readonly _client: RestClient
-    private readonly _payment: Payment
-    constructor(token: string) {
-        const bearerCredentialHandler: BearerCredentialHandler = new BearerCredentialHandler(token)
-        this._client = new rm.RestClient(USER_AGENT, BASE_URL, [
-            bearerCredentialHandler
-        ])
+    private static readonly DEFAULT_HOST: string = 'api.payex.com'
+    private static readonly DEFAULT_TEST_HOST: string = 'api.externalintegration.payex.com'
+    private static readonly DEFAULT_BASE_PATH: string = '/psp/'
 
-        this._payment = new Payment(this._client)
+    private readonly _client: RestClient
+
+    private _payment: Payment | null = null
+
+    constructor(token: string, requestOptions?: IRequestOptions) {
+        const host: string = process.env.NODE_ENV === 'production' ? Payex.DEFAULT_HOST : Payex.DEFAULT_TEST_HOST
+        const baseUrl: string = `https://${host}${Payex.DEFAULT_BASE_PATH}`
+
+        const bearerCredentialHandler: BearerCredentialHandler = new BearerCredentialHandler(token)
+        const handlers = [bearerCredentialHandler]
+
+        this._client = new RestClient(USER_AGENT, baseUrl, handlers, requestOptions)
     }
 
     get payment(): Payment {
-        return this._payment;
+        if(!this._payment) {
+            this._payment = new Payment(this._client)
+        }
+        return this._payment
     }
 }
 
-export default function client(token: string) {
-    return new Payex(token)
-}
+export = Payex
