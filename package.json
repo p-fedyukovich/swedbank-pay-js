@@ -12,26 +12,29 @@
   "contributors": [
     "Pavel Fediukovich <pavel@urbansharing.com>"
   ],
-  "main": "index.js",
+  "types": "build/index.d.ts",
+  "main": "build/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "check": "gts check",
+    "clean": "gts clean",
+    "precompile": "gts clean",
+    "compile": "tsc",
+    "fix": "gts fix",
+    "prepare": "yarn run compile",
+    "pretest": "yarn run compile",
+    "posttest": "yarn run check"
   },
+  "files": [
+    "build/**/*"
+  ],
   "license": "ISC",
   "devDependencies": {
-    "@types/jest": "^24.0.19",
-    "@types/nock": "^11.1.0",
-    "@types/node": "^12.11.6",
-    "copyfiles": "^2.1.1",
-    "eslint": "^6.5.1",
-    "eslint-config-prettier": "^6.4.0",
-    "gts": "^1.1.0",
-    "jest": "^24.9.0",
-    "nock": "^11.6.0",
-    "npm-run-all": "^4.1.5",
-    "ts-jest": "^24.1.0",
-    "typescript": "^3.6.4"
+    "@types/node": "^12.12.37",
+    "gts": "^1.1.2",
+    "typescript": "~3.7.3"
   },
   "dependencies": {
-    "typed-rest-client": "^1.5.0"
+    "axios": "^0.19.0"
   }
 }

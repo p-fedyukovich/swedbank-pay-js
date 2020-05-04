@@ -1,22 +1,22 @@
 export enum CurrencyEnum {
-    /**
-     * Norwegian krone
-     */
-    NOK,
-    /**
-     * Swedish krona
-     */
-    SEK,
-    /**
-     * Danish krone
-     */
-    DKK,
-    /**
-     * United States dollar
-     */
-    USD,
-    /**
-     * Euro
-     */
-    EUR
+  /**
+   * Norwegian krone
+   */
+  NOK = 'NOK',
+  /**
+   * Swedish krona
+   */
+  SEK = 'SEK',
+  /**
+   * Danish krone
+   */
+  DKK = 'DKK',
+  /**
+   * United States dollar
+   */
+  USD = 'USD',
+  /**
+   * Euro
+   */
+  EUR = 'EUR'
 }
