@@ -1,33 +1,13 @@
 {
-  "defaultSeverity": "error",
-  "extends": [
-    "tslint:recommended"
-  ],
-  "jsRules": {},
+  "extends": "gts/tslint.json",
+  "linterOptions": {
+    "exclude": [
+      "**/*.json"
+    ]
+  },
   "rules": {
-    "no-namespace": false,
-    "semicolon": [
-      true,
-      "never"
-    ],
-    "no-console": [
-      false
-    ],
-    "interface-name": false,
-    "indent": [
-      true,
-      "spaces",
-      4
-    ],
-    "linebreak-style": [
-      true,
-      "LF"
-    ],
-    "trailing-comma": false,
-    "no-var-requires": false,
-    "variable-name": false,
-    "quotemark": [true, "single"],
-    "whitespace": [true, "check-module"],
-    "object-literal-sort-keys": false
+    "no-any": false,
+    "no-default-export": false,
+    "interface-name": false
   }
 }

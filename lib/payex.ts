@@ -1,36 +1,69 @@
-import { BearerCredentialHandler } from 'typed-rest-client/Handlers'
-import { IRequestOptions } from 'typed-rest-client/Interfaces'
-import { RestClient } from 'typed-rest-client/RestClient'
-import { Payment } from './payment'
+import axios, { AxiosInstance } from 'axios'
+import { PaymentResource } from './resources/payment'
+import { CaptureResource } from './resources/capture'
+import { AuthorizationResource } from './resources/authorization'
+import { InstrumentResource } from './resources/instrument'
+import { TransactionResource } from './resources/transaction'
+import { VerificationResource } from './resources/verification'
 
 // TODO update user agent
 const USER_AGENT = 'urbaninfrastructure'
 
 class Payex {
-    private static readonly DEFAULT_HOST: string = 'api.payex.com'
-    private static readonly DEFAULT_TEST_HOST: string = 'api.externalintegration.payex.com'
-    private static readonly DEFAULT_BASE_PATH: string = '/psp/'
+  static readonly DEFAULT_HOST: string = 'api.payex.com'
+  static readonly DEFAULT_TEST_HOST: string = 'api.externalintegration.payex.com'
 
-    private readonly _client: RestClient
+  private readonly _client: AxiosInstance
 
-    private _payment: Payment | null = null
+  private readonly _payments: PaymentResource
+  private readonly _captures: CaptureResource
+  private readonly _authorizations: AuthorizationResource
+  private readonly _instruments: InstrumentResource
+  private readonly _transactions: TransactionResource
+  private readonly _verifications: VerificationResource
 
-    constructor(token: string, requestOptions?: IRequestOptions) {
-        const host: string = process.env.NODE_ENV === 'production' ? Payex.DEFAULT_HOST : Payex.DEFAULT_TEST_HOST
-        const baseUrl: string = `https://${host}${Payex.DEFAULT_BASE_PATH}`
+  constructor(token: string) {
+    const host: string =
+      process.env.NODE_ENV === 'production' ? Payex.DEFAULT_HOST : Payex.DEFAULT_TEST_HOST
 
-        const bearerCredentialHandler: BearerCredentialHandler = new BearerCredentialHandler(token)
-        const handlers = [bearerCredentialHandler]
+    this._client = axios.create({
+      baseURL: `https://${host}`,
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
 
-        this._client = new RestClient(USER_AGENT, baseUrl, handlers, requestOptions)
-    }
+    this._payments = new PaymentResource(this._client)
+    this._captures = new CaptureResource(this._client)
+    this._authorizations = new AuthorizationResource(this._client)
+    this._instruments = new InstrumentResource(this._client)
+    this._transactions = new TransactionResource(this._client)
+    this._verifications = new VerificationResource(this._client)
+  }
 
-    get payment(): Payment {
-        if(!this._payment) {
-            this._payment = new Payment(this._client)
-        }
-        return this._payment
-    }
+  get payments(): PaymentResource {
+    return this._payments
+  }
+
+  get captures(): CaptureResource {
+    return this._captures
+  }
+
+  get authorizations(): AuthorizationResource {
+    return this._authorizations
+  }
+
+  get instruments(): InstrumentResource {
+    return this._instruments
+  }
+
+  get transactions(): TransactionResource {
+    return this._transactions
+  }
+
+  get verifications(): VerificationResource {
+    return this._verifications
+  }
 }
 
 export = Payex
