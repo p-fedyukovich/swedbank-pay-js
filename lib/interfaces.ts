@@ -1,27 +1,3 @@
-import { CreditCardType } from './credit-card'
-
-/**
- * The intent of the payment identifies how and when the charge will be effectuated.
- * This determine the type transactions used during the payment process.
- */
-export enum IntentType {
-  /**
-   * Holds the funds for a certain time in contrast to reserving the amount.
-   * A preauthoriations is always followed by the finalize operation
-   */
-  PreAuthorization = 'PreAuthorization',
-
-  /**
-   * Reserves the amount, and is followed by a cancellation or capture of funds.
-   */
-  Authorization = 'Authorization',
-
-  /**
-   * A one phase option that enable capture of funds automatically after authorization.
-   */
-  AutoCapture = 'AutoCapture'
-}
-
 export interface Price {
   /**
    * Use the generic type {@link CreditCard} if you want to enable all card
@@ -31,7 +7,7 @@ export interface Price {
    * If you want to use more than one amount you must have one instance in the prices node for each card brand.
    * You will not be allowed to both specify card brands and CreditCard at the same time in this field.
    */
-  type: CreditCardType
+  type: 'CreditCard' | 'Visa' | 'MasterCard'
   /**
    * Amount is entered in the lowest monetary units of the selected currency.
    * E.g. 10000 = 100.00 NOK, 5000 = 50.00 SEK.
@@ -53,7 +29,7 @@ export interface Urls {
   /**
    * The URL that PayEx will redirect back to when the payment page is completed.
    */
-  completeUrl: string
+  completeUrl?: string
   /**
    * The URI to redirect the payer to if the payment is canceled. Only used in redirect scenarios.
    * Can not be used simultaneously with paymentUrl; only cancelUrl or paymentUrl can be used, not both.

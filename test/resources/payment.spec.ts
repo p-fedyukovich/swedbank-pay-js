@@ -1,5 +1,5 @@
 
-describe('Payment resource', () => {
+describe('PaymentResource resource', () => {
     it('should ', () => {
 
     })
