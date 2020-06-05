@@ -5,6 +5,7 @@ import { AuthorizationResource } from './resources/authorization'
 import { InstrumentResource } from './resources/instrument'
 import { TransactionResource } from './resources/transaction'
 import { VerificationResource } from './resources/verification'
+import { ReversalResource } from './resources/reversal'
 
 // TODO update user agent
 const USER_AGENT = 'urbaninfrastructure'
@@ -21,6 +22,7 @@ class Payex {
   private readonly _instruments: InstrumentResource
   private readonly _transactions: TransactionResource
   private readonly _verifications: VerificationResource
+  private readonly _reversals: ReversalResource
 
   constructor(token: string) {
     const host: string =
@@ -39,6 +41,7 @@ class Payex {
     this._instruments = new InstrumentResource(this._client)
     this._transactions = new TransactionResource(this._client)
     this._verifications = new VerificationResource(this._client)
+    this._reversals = new ReversalResource(this._client)
   }
 
   get payments(): PaymentResource {
@@ -63,6 +66,10 @@ class Payex {
 
   get verifications(): VerificationResource {
     return this._verifications
+  }
+
+  get reversals(): ReversalResource {
+    return this._reversals
   }
 }
 

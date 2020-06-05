@@ -10,7 +10,7 @@ export interface Transaction {
   id: string
   created: string
   updated: string
-  type: 'Capture' | 'Authorization' | 'Verification'
+  type: 'Capture' | 'Authorization' | 'Verification' | 'Reversal'
   state: 'Completed' | 'Failed'
   number: number
   amount: number
