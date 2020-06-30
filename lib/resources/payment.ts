@@ -266,6 +266,8 @@ export class PaymentResource extends AbstractResource {
         return CurrencyEnum.USD
       case 'EUR':
         return CurrencyEnum.EUR
+      case 'GBP':
+        return CurrencyEnum.GBP
       default:
         throw new Error(`Currency ${currency} is not supported`)
     }

@@ -18,5 +18,9 @@ export enum CurrencyEnum {
   /**
    * Euro
    */
-  EUR = 'EUR'
+  EUR = 'EUR',
+  /**
+   * Euro
+   */
+  GBP = 'GBP'
 }
