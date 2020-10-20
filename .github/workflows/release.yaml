@@ -1,8 +1,7 @@
-name: Pre release
+name: Release
 
-# Run this workflow every time when changes land on master
 on:
-  push:
+  pull_request:
     branches:
       - master
 
@@ -20,9 +19,5 @@ jobs:
           node-version: 12
       - run: yarn install
 
-      - uses: marvinpinto/action-automatic-releases@latest
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          automatic_release_tag: latest
-          prerelease: true
-          title: Development Build
+      - name: Realease
+      - run: yarn release -- --ci

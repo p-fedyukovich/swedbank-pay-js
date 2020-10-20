@@ -16,6 +16,7 @@
   "main": "build/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "release": "release-it",
     "check": "gts check",
     "clean": "gts clean",
     "precompile": "gts clean",
@@ -32,6 +33,7 @@
   "devDependencies": {
     "@types/node": "^12.12.37",
     "gts": "^1.1.2",
+    "release-it": "^14.2.0",
     "typescript": "~3.7.3"
   },
   "dependencies": {
