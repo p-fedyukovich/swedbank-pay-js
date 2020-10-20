@@ -3,6 +3,7 @@ import { Metadata, PayeeInfo, Price, Urls } from '../interfaces'
 import { PayexError } from '../error'
 import { AbstractResource } from './abstract'
 import { AxiosInstance } from 'axios'
+import { ReversalResponse } from './reversal'
 
 interface Operation {
   href: string
@@ -265,6 +266,8 @@ export class PaymentResource extends AbstractResource {
         return CurrencyEnum.USD
       case 'EUR':
         return CurrencyEnum.EUR
+      case 'GBP':
+        return CurrencyEnum.GBP
       default:
         throw new Error(`Currency ${currency} is not supported`)
     }
@@ -282,6 +285,34 @@ export class PaymentResource extends AbstractResource {
 
   async retrieveFailed(paymentId: string): Promise<PaidPaymentResponse> {
     const response = await this._client.get<PaidPaymentResponse>(`${paymentId}/paid`)
+    return response.data
+  }
+
+  async createReversal(
+    paymentId: string,
+    {
+      amount,
+      vatAmount,
+      description,
+      payeeReference
+    }: {
+      amount: number
+      vatAmount: number
+      description: string
+      payeeReference: string
+    }
+  ): Promise<ReversalResponse> {
+    const response = await this._client.post<any>(
+      `${PaymentResource.RESOURCE}/${paymentId}/reversals`,
+      {
+        transaction: {
+          amount,
+          vatAmount,
+          description,
+          payeeReference
+        }
+      }
+    )
     return response.data
   }
 

@@ -10,7 +10,7 @@ export interface Transaction {
   id: string
   created: string
   updated: string
-  type: 'Capture' | 'Authorization' | 'Verification'
+  type: 'Capture' | 'Authorization' | 'Verification' | 'Reversal'
   state: 'Completed' | 'Failed'
   number: number
   amount: number
@@ -27,6 +27,7 @@ export interface Transaction {
     | 'REJECTED_BY_ACQUIRER_CARD_STOLEN'
     | 'REJECTED_BY_ACQUIRER_CARD_EXPIRED'
     | 'REJECTED_BY_ACQUIRER_INSUFFICIENT_FUNDS'
+    | 'REJECTED_BY_ACQUIRER_CARD_BLACKLISTED'
     | 'REJECTED_BY_ACQUIRER'
     | 'ACQUIRER_HOST_OFFLINE'
   failedErrorDescription?: string
