@@ -1,18 +1,20 @@
-name: Publish
+name: Node.js Package
 
-# Run this workflow every time a new commit pushed to your repository
-on: push
+# Run this workflow every time the release event triggers with type created
+on:
+  release:
+    types: [created]
 
 jobs:
-  publish:
+  build:
     # Set the type of machine to run on
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-      - uses: actions/checkout@v2
+        uses: actions/checkout@v2
 
       - name: Set node version
-      - uses: actions/setup-node@v1
+        uses: actions/setup-node@v1
         with:
           node-version: 12
       - run: yarn install
