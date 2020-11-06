@@ -12,7 +12,7 @@ uses Payex access token.
 Install the package with:
 
 ```sh
-yarn add @urbaninfrastructure/payex-rest
+yarn add payex-rest
 ```
 
 ## Usage
