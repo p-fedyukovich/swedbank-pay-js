@@ -33,7 +33,9 @@
   "devDependencies": {
     "@types/node": "^12.12.37",
     "gts": "^1.1.2",
+    "prettier": "^2.1.2",
     "release-it": "^14.2.0",
+    "ts-lint": "^4.5.1",
     "typescript": "~3.7.3"
   },
   "dependencies": {

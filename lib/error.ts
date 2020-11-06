@@ -14,7 +14,7 @@ interface RawPayexError {
   }
 }
 
-export class PayexError extends Error {
+export default class PayExError extends Error {
   constructor(raw: RawPayexError) {
     super(raw.title)
     this.raw = raw
@@ -32,12 +32,12 @@ export class PayexError extends Error {
     }
   }
 
-  static generate(rawPayexError: RawPayexError): PayexError {
+  static generate(rawPayexError: RawPayexError): PayExError {
     if (rawPayexError.type && rawPayexError.type.includes('inputerror')) {
       return new PayexInvalidRequestError(rawPayexError)
     }
 
-    return new PayexError(rawPayexError)
+    return new PayExError(rawPayexError)
   }
 
   readonly message: string
@@ -57,7 +57,7 @@ export class PayexError extends Error {
 //   readonly type: 'StripeCardError';
 // }
 
-export class PayexInvalidRequestError extends PayexError {
+export class PayexInvalidRequestError extends PayExError {
   readonly type!: 'PayexInvalidRequestError'
 }
 

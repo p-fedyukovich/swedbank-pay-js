@@ -1,9 +1,9 @@
-import { AxiosInstance } from 'axios'
+import PayExAPI from '../api'
 
 export abstract class AbstractResource {
-  protected readonly _client: AxiosInstance
+  protected readonly _api: PayExAPI
 
-  protected constructor(client: AxiosInstance) {
-    this._client = client
+  constructor(api: PayExAPI) {
+    this._api = api
   }
 }

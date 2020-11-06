@@ -1,12 +1,6 @@
-import { AbstractResource } from './abstract'
-import { AxiosInstance } from 'axios'
+import RawCommonPaymentResponse from './raw-common-payment-response'
 
-export interface TransactionResponse {
-  payment: string
-  transaction: Transaction
-}
-
-export interface Transaction {
+export interface RawTransaction {
   id: string
   created: string
   updated: string
@@ -31,15 +25,12 @@ export interface Transaction {
     | 'REJECTED_BY_ACQUIRER'
     | 'ACQUIRER_HOST_OFFLINE'
   failedErrorDescription?: string
+  problem: any
 }
 
-export class TransactionResource extends AbstractResource {
-  constructor(client: AxiosInstance) {
-    super(client)
-  }
-
-  async retrieve(transactionId: string): Promise<TransactionResponse> {
-    const response = await this._client.get<TransactionResponse>(transactionId)
-    return response.data
+export default interface RawTransactionsResponse extends RawCommonPaymentResponse {
+  transactions: {
+    id: string
+    transactionList: RawTransaction[]
   }
 }
