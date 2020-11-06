@@ -22,7 +22,7 @@ available in your [Payex Admin portal](https://admin.payex.com/psp/login). Requi
 value:
 
 ```js
-const Payex = require('@urbaninfrastructure/payex-rest')
+const Payex = require('payex-rest')
 const payex = new Payex('token')
 
 const purchaseResponse = await payex.payment.purchase({
