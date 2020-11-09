@@ -1,4 +1,4 @@
-interface RawPayexError {
+interface RawSwedbankPayError {
   sessionId: string
   type: string
   title: string
@@ -14,8 +14,8 @@ interface RawPayexError {
   }
 }
 
-export default class PayExError extends Error {
-  constructor(raw: RawPayexError) {
+export default class SwedbankPayError extends Error {
+  constructor(raw: RawSwedbankPayError) {
     super(raw.title)
     this.raw = raw
     this.message = raw.title
@@ -26,18 +26,18 @@ export default class PayExError extends Error {
     this.statusCode = raw.status
     this.detail = raw.detail
 
-    if (this.type === 'PayexInvalidRequestError') {
+    if (this.type === 'SwedbankPayInvalidRequestError') {
       const problem = raw.problems[0]
       this.param = `${problem.name}: ${problem.description}`
     }
   }
 
-  static generate(rawPayexError: RawPayexError): PayExError {
-    if (rawPayexError.type && rawPayexError.type.includes('inputerror')) {
-      return new PayexInvalidRequestError(rawPayexError)
+  static generate(rawError: RawSwedbankPayError): SwedbankPayError {
+    if (rawError.type && rawError.type.includes('inputerror')) {
+      return new SwedbankPayInvalidRequestError(rawError)
     }
 
-    return new PayExError(rawPayexError)
+    return new SwedbankPayError(rawError)
   }
 
   readonly message: string
@@ -53,23 +53,6 @@ export default class PayExError extends Error {
   readonly statusCode?: number
 }
 
-// class StripeCardError extends StripeError {
-//   readonly type: 'StripeCardError';
-// }
-
-export class PayexInvalidRequestError extends PayExError {
-  readonly type!: 'PayexInvalidRequestError'
+export class SwedbankPayInvalidRequestError extends SwedbankPayError {
+  readonly type!: 'SwedbankPayInvalidRequestError'
 }
-
-// class StripeAPIError extends StripeError {
-//   readonly type: 'StripeAPIError';
-// }
-//
-// class StripeAuthenticationError extends StripeError {
-//   readonly type: 'StripeAuthenticationError';
-// }
-//
-//
-// class StripeIdempotencyError extends StripeError {
-//   readonly type: 'StripeIdempotencyError';
-// }

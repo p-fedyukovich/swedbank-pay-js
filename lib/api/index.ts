@@ -10,14 +10,14 @@ import RawCapturesResponse from './response/raw-captures-response'
 import RawReversalsResponse from './response/raw-reversals-response'
 import RawVerificationsResponse from './response/raw-verifications-response'
 import RawPaymentResponse from './response/raw-payment-response'
-import PayExError from '../error'
+import SwedbankPayError from '../error'
 import CreatePaymentRequest from './request/create-payment-request'
 import CreateReversalRequest from './request/create-reversal-request'
 import RawReversalResponse from './response/raw-reversal-response'
 import RawPaidPaymentResponse from './response/raw-paid-payment-response'
 import RawInstrumentResponse from './response/raw-instrument-response'
 
-export default class PayExAPI {
+export default class SwedbankPayAPI {
   static readonly DEFAULT_HOST: string = 'api.payex.com'
   static readonly DEFAULT_TEST_HOST: string = 'api.externalintegration.payex.com'
 
@@ -26,7 +26,9 @@ export default class PayExAPI {
 
   constructor(token: string) {
     const host: string =
-      process.env.NODE_ENV === 'production' ? PayExAPI.DEFAULT_HOST : PayExAPI.DEFAULT_TEST_HOST
+      process.env.NODE_ENV === 'production'
+        ? SwedbankPayAPI.DEFAULT_HOST
+        : SwedbankPayAPI.DEFAULT_TEST_HOST
 
     this._baseURL = `https://${host}`
     this._client = axios.create({
@@ -48,13 +50,13 @@ export default class PayExAPI {
       if (error.response) {
         const { headers, data } = error.response
 
-        throw PayExError.generate({
+        throw SwedbankPayError.generate({
           ...data,
           headers
         })
       }
 
-      throw PayExError.generate(error)
+      throw SwedbankPayError.generate(error)
     }
   }
 

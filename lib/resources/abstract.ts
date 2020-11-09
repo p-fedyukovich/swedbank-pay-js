@@ -1,9 +1,9 @@
-import PayExAPI from '../api'
+import SwedbankPayAPI from '../api'
 
 export abstract class AbstractResource {
-  protected readonly _api: PayExAPI
+  protected readonly _api: SwedbankPayAPI
 
-  constructor(api: PayExAPI) {
+  constructor(api: SwedbankPayAPI) {
     this._api = api
   }
 }

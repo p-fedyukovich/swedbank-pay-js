@@ -1,16 +1,16 @@
-import PayExAPI from './api'
+import SwedbankPayAPI from './api'
 import PaymentResource from './resources/payment'
 import InstrumentResource from './resources/instrument'
 
-class PayEx {
+class SwedbankPay {
   private readonly _payments: PaymentResource
   private readonly _instruments: InstrumentResource
 
   constructor(token: string) {
-    const payExAPI = new PayExAPI(token)
+    const api = new SwedbankPayAPI(token)
 
-    this._payments = new PaymentResource(payExAPI)
-    this._instruments = new InstrumentResource(payExAPI)
+    this._payments = new PaymentResource(api)
+    this._instruments = new InstrumentResource(api)
   }
 
   get payments(): PaymentResource {
@@ -22,4 +22,4 @@ class PayEx {
   }
 }
 
-export = PayEx
+export = SwedbankPay
