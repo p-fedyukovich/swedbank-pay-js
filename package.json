@@ -1,5 +1,5 @@
 {
-  "name": "swedbank-pay",
+  "name": "swedbank-pay-js",
   "version": "0.2.2",
   "description": "Swedbank Pay (PayEx) API wrapper",
   "keywords": [
