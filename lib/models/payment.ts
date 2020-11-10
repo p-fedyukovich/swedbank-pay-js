@@ -230,7 +230,7 @@ export default class Payment {
     description: string,
     payeeReference: string
   ): Promise<Reversal | null> {
-    const operation = this._raw.operations.find((op) => op.rel === 'create-reversal')
+    const operation = this.getOperation('create-reversal')
     if (!operation) {
       return null
     }
@@ -248,7 +248,7 @@ export default class Payment {
   }
 
   async getPaid(): Promise<PaidPayment | null> {
-    const operation = this._raw.operations.find((op) => op.rel === 'paid-payment')
+    const operation = this.getOperation('paid-payment')
     if (!operation) {
       return null
     }

@@ -1,7 +1,7 @@
-import { Transaction } from './transactions'
 import RawVerificationsResponse, {
   RawVerification
 } from '../api/response/raw-verifications-response'
+import Transaction from './transaction'
 
 export class Verification {
   private readonly _id: string

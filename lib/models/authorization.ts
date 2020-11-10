@@ -1,5 +1,5 @@
-import { Transaction } from './transactions'
 import { RawAuthorization } from '../api/response/raw-authorizations-response'
+import Transaction from './transaction'
 
 export default class Authorization {
   private readonly _id: string

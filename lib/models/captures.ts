@@ -1,5 +1,5 @@
 import RawCapturesResponse, { RawCapture } from '../api/response/raw-captures-response'
-import { Transaction } from './transactions'
+import Transaction from './transaction'
 
 export class Capture {
   private readonly _id: string

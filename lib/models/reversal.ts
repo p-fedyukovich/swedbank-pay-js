@@ -1,5 +1,5 @@
-import { Transaction } from './transactions'
 import RawReversal from '../api/response/raw-reversal'
+import Transaction from './transaction'
 
 export class Reversal {
   private readonly _id: string
