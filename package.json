@@ -1,16 +1,17 @@
 {
-  "name": "payex-rest",
-  "version": "0.2.2",
-  "description": "Payex REST API wrapper",
+  "name": "swedbank-pay-js",
+  "version": "1.0.0-RC1",
+  "description": "Swedbank Pay (PayEx) API wrapper",
   "keywords": [
     "payex",
+    "swedbank-pay",
     "payment processing",
     "credit cards",
     "api"
   ],
-  "author": "Urban Infrastructure Partner <developer@urbansharing.com> (http://urbansharing.com)",
+  "author": "Pavel Fediukovich <pavel.fedyukovich@gmail.com>",
   "contributors": [
-    "Pavel Fediukovich <pavel@urbansharing.com>"
+    "Pavel Fediukovich <pavel.fedyukovich@gmail.com>"
   ],
   "types": "build/index.d.ts",
   "main": "build/index.js",
@@ -33,10 +34,13 @@
   "devDependencies": {
     "@types/node": "^12.12.37",
     "gts": "^1.1.2",
+    "prettier": "^2.1.2",
     "release-it": "^14.2.0",
+    "ts-lint": "^4.5.1",
     "typescript": "~3.7.3"
   },
   "dependencies": {
-    "axios": "^0.19.0"
+    "axios": "^0.21.0",
+    "axios-retry": "^3.1.9"
   }
 }

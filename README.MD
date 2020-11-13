@@ -1,7 +1,7 @@
-# Payex REST Node.js Library
+# Swedbank Pay Node.js Library
 
 
-The Payex REST Node library provides convenient access to the Payex API from
+The Swedbank Pay Node library provides convenient access to the Swedbank Pay API from
 applications written in server-side JavaScript.
 
 Please keep in mind that this package is for use with server-side Node that
@@ -12,20 +12,20 @@ uses Payex access token.
 Install the package with:
 
 ```sh
-yarn add payex-rest
+yarn add swedbank-pay-js
 ```
 
 ## Usage
 
 The package needs to be configured with your account's access token which is
-available in your [Payex Admin portal](https://admin.payex.com/psp/login). Require it with the key's
+available in your [Swedbank Pay Admin portal](https://admin.payex.com/psp/beta/login). Require it with the key's
 value:
 
 ```js
-const Payex = require('payex-rest')
-const payex = new Payex('token')
+const SwedbankPay = require('swedbank-pay-js')
+const swedbankPay = new SwedbankPay('token')
 
-const purchaseResponse = await payex.payment.purchase({
+const payment = await swedbankPay.payment.create({
   amount: 1000,
   currency: 'NOK',
   ...

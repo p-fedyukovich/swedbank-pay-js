@@ -1,9 +1,9 @@
-import { AxiosInstance } from 'axios'
+import SwedbankPayAPI from '../api'
 
 export abstract class AbstractResource {
-  protected readonly _client: AxiosInstance
+  protected readonly _api: SwedbankPayAPI
 
-  protected constructor(client: AxiosInstance) {
-    this._client = client
+  constructor(api: SwedbankPayAPI) {
+    this._api = api
   }
 }
