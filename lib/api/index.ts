@@ -76,43 +76,43 @@ export default class SwedbankPayAPI {
   }
 
   getPayment(paymentId: string): Promise<RawPaymentResponse> {
-    return this.get<RawPaymentResponse>(paymentId)
+    return this.get<RawPaymentResponse>(`${this._baseURL}${paymentId}`)
   }
 
-  getRawPrices(pricesId: string): Promise<RawPricesResponse> {
-    return this.get<RawPricesResponse>(pricesId)
+  getPrices(pricesId: string): Promise<RawPricesResponse> {
+    return this.get<RawPricesResponse>(`${this._baseURL}${pricesId}`)
   }
 
-  getRawUrls(urlsId: string): Promise<RawUrlsResponse> {
-    return this.get<RawUrlsResponse>(urlsId)
+  getUrls(urlsId: string): Promise<RawUrlsResponse> {
+    return this.get<RawUrlsResponse>(`${this._baseURL}${urlsId}`)
   }
 
-  getRawPayeeInfo(payeeInfoId: string): Promise<RawPayeeInfoResponse> {
-    return this.get<RawPayeeInfoResponse>(payeeInfoId)
+  getPayeeInfo(payeeInfoId: string): Promise<RawPayeeInfoResponse> {
+    return this.get<RawPayeeInfoResponse>(`${this._baseURL}${payeeInfoId}`)
   }
 
   getMetadata(metadataId: string): Promise<RawMetadataResponse> {
-    return this.get<RawMetadataResponse>(metadataId)
+    return this.get<RawMetadataResponse>(`${this._baseURL}${metadataId}`)
   }
 
   getTransactions(transactionsId: string): Promise<RawTransactionsResponse> {
-    return this.get<RawTransactionsResponse>(transactionsId)
+    return this.get<RawTransactionsResponse>(`${this._baseURL}${transactionsId}`)
   }
 
   getAuthorizations(authorizationsId: string): Promise<RawAuthorizationsResponse> {
-    return this.get<RawAuthorizationsResponse>(authorizationsId)
+    return this.get<RawAuthorizationsResponse>(`${this._baseURL}${authorizationsId}`)
   }
 
   getCaptures(capturesId: string): Promise<RawCapturesResponse> {
-    return this.get<RawCapturesResponse>(capturesId)
+    return this.get<RawCapturesResponse>(`${this._baseURL}${capturesId}`)
   }
 
   getReversals(reversalsId: string): Promise<RawReversalsResponse> {
-    return this.get<RawReversalsResponse>(reversalsId)
+    return this.get<RawReversalsResponse>(`${this._baseURL}${reversalsId}`)
   }
 
   getVerifications(verificationsId: string): Promise<RawVerificationsResponse> {
-    return this.get<RawVerificationsResponse>(verificationsId)
+    return this.get<RawVerificationsResponse>(`${this._baseURL}${verificationsId}`)
   }
 
   getPaidPayment(url: string, method: Method): Promise<RawPaidPaymentResponse> {

@@ -151,7 +151,7 @@ export default class Payment {
     if (!this.pricesURN) {
       return null
     }
-    const rawPrices = await this.api.getRawPrices(this.pricesURN)
+    const rawPrices = await this.api.getPrices(this.pricesURN)
     return Prices.generate(rawPrices)
   }
 
@@ -159,7 +159,7 @@ export default class Payment {
     if (!this.urlsURN) {
       return null
     }
-    const rawUrls = await this.api.getRawUrls(this.urlsURN)
+    const rawUrls = await this.api.getUrls(this.urlsURN)
     return Urls.generate(rawUrls)
   }
 
@@ -167,7 +167,7 @@ export default class Payment {
     if (!this.payeeInfoURN) {
       return null
     }
-    const rawPayeeInfo = await this.api.getRawPayeeInfo(this.payeeInfoURN)
+    const rawPayeeInfo = await this.api.getPayeeInfo(this.payeeInfoURN)
     return PayeeInfo.generate(rawPayeeInfo)
   }
 
@@ -351,6 +351,6 @@ export default class Payment {
   }
 
   getOperation(name: string): Operation | null {
-    return this._operations.find((op: Operation) => op.rel) || null
+    return this._operations.find((op: Operation) => op.rel === name) || null
   }
 }
