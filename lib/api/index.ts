@@ -1,4 +1,5 @@
 import axios, { AxiosInstance, Method } from 'axios'
+import axiosRetry from 'axios-retry'
 
 import RawPayeeInfoResponse from './response/raw-payee-info-response'
 import RawPricesResponse from './response/raw-prices-response'
@@ -21,7 +22,7 @@ export default class SwedbankPayAPI {
   static readonly DEFAULT_HOST: string = 'api.payex.com'
   static readonly DEFAULT_TEST_HOST: string = 'api.externalintegration.payex.com'
 
-  private _client: AxiosInstance
+  private readonly _client: AxiosInstance
   private readonly _baseURL: string
 
   constructor(token: string) {
@@ -36,6 +37,8 @@ export default class SwedbankPayAPI {
         Authorization: `Bearer ${token}`
       }
     })
+
+    axiosRetry(this._client, { retryDelay: axiosRetry.exponentialDelay , retries: 5})
   }
 
   private async request<T>(method: Method, url?: string, data?: any): Promise<T> {
