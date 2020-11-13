@@ -79,6 +79,10 @@ export default class PaidPayment {
     return this._number
   }
 
+  get transactionId(): string {
+    return this._transactionId
+  }
+
   get transactionNumber(): number {
     return this._transactionNumber
   }
