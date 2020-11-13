@@ -25,7 +25,13 @@ export interface RawTransaction {
     | 'REJECTED_BY_ACQUIRER'
     | 'ACQUIRER_HOST_OFFLINE'
   failedErrorDescription?: string
-  problem: any
+  problem?: any
+  operations: Array<{
+    href: string
+    rel: string
+    method: 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE'
+    contentType: string
+  }>
 }
 
 export default interface RawTransactionsResponse extends RawCommonPaymentResponse {
