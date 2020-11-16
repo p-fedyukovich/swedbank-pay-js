@@ -1,7 +1,8 @@
 {
   "name": "swedbank-pay-js",
-  "version": "1.0.0-RC2",
+  "version": "1.0.0",
   "description": "Swedbank Pay (PayEx) API wrapper",
+  "homepage": "https://github.com/p-fedyukovich/swedbank-pay-js#readme",
   "keywords": [
     "payex",
     "swedbank-pay",
@@ -30,7 +31,7 @@
   "files": [
     "build/**/*"
   ],
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@types/node": "^12.12.37",
     "gts": "^1.1.2",
