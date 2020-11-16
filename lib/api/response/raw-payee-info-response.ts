@@ -1,6 +1,6 @@
 import RawCommonPaymentResponse from './raw-common-payment-response'
 
-export default interface RawPayeeInfoResponse extends RawCommonPaymentResponse{
+export default interface RawPayeeInfoResponse extends RawCommonPaymentResponse {
   payeeInfo: {
     id: string
     /**

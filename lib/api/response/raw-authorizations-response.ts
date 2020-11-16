@@ -1,9 +1,10 @@
 import RawCommonPaymentResponse from './raw-common-payment-response'
 import { RawTransaction } from './raw-transactions-response'
+import RawCardBrand from './raw-card-brand'
 
 export interface RawAuthorization {
   id: string
-  cardBrand: string
+  cardBrand: RawCardBrand
   cardType: string
   maskedPan: string
   expiryDate: string

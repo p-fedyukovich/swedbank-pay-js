@@ -38,7 +38,7 @@ export default class SwedbankPayAPI {
       }
     })
 
-    axiosRetry(this._client, { retryDelay: axiosRetry.exponentialDelay , retries: 5})
+    axiosRetry(this._client, { retryDelay: axiosRetry.exponentialDelay, retries: 5 })
   }
 
   private async request<T>(method: Method, url?: string, data?: any): Promise<T> {
