@@ -1,14 +1,13 @@
 import { RawAuthorization } from '../api/response/raw-authorizations-response'
 import Transaction from './transaction'
+import Card from './card'
 
 export default class Authorization {
   private readonly _id: string
-  private readonly _cardBrand: string
   private readonly _cardType: string
-  private readonly _maskedPan: string
-  private readonly _expiryDate: string
   private readonly _panToken: string
   private readonly _panEnrolled: boolean
+  private readonly _card: Card
   private readonly _acquirerTransactionType: string
   private readonly _recurrenceToken: string | null = null
   private readonly _paymentToken: string | null = null
@@ -22,13 +21,12 @@ export default class Authorization {
 
   private constructor(raw: RawAuthorization) {
     this._id = raw.id
-    this._cardBrand = raw.cardBrand
     this._cardType = raw.cardType
-    this._maskedPan = raw.maskedPan
-    this._expiryDate = raw.expiryDate
     this._panToken = raw.panToken
     this._panEnrolled = raw.panEnrolled
     this._acquirerTransactionType = raw.acquirerTransactionType
+    this._card = Card.generate(raw.cardBrand, raw.maskedPan, raw.expiryDate)
+
     if (raw.recurrenceToken) {
       this._recurrenceToken = raw.recurrenceToken
     }
@@ -60,20 +58,8 @@ export default class Authorization {
     return this._id
   }
 
-  get cardBrand(): string {
-    return this._cardBrand
-  }
-
   get cardType(): string {
     return this._cardType
-  }
-
-  get maskedPan(): string {
-    return this._maskedPan
-  }
-
-  get expiryDate(): string {
-    return this._expiryDate
   }
 
   get panToken(): string {
@@ -82,6 +68,10 @@ export default class Authorization {
 
   get panEnrolled(): boolean {
     return this._panEnrolled
+  }
+
+  get card(): Card {
+    return this._card
   }
 
   get acquirerTransactionType(): string {

@@ -1,3 +1,5 @@
+import RawCardBrand from './raw-card-brand'
+
 export default interface RawPaidPaymentResponse {
   payment: string
   paid: {
@@ -8,16 +10,7 @@ export default interface RawPaidPaymentResponse {
       expiryDate: string
     }>
     detail: {
-      cardBrand:
-        | 'Visa'
-        | 'MasterCard'
-        | 'Amex'
-        | 'Dankort'
-        | 'Diners'
-        | 'Finax'
-        | 'Jcb'
-        | 'IkanoFinansDK'
-        | 'Maestro'
+      cardBrand: RawCardBrand
       maskedPan: string
       cardType: string
       issuingBank: string

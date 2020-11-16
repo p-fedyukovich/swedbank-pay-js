@@ -1,15 +1,8 @@
+import RawCardBrand from './raw-card-brand'
+
 export default interface RawInstrumentResponse {
   instrumentData: {
-    cardBrand:
-      | 'Visa'
-      | 'MasterCard'
-      | 'Amex'
-      | 'Dankort'
-      | 'Diners'
-      | 'Finax'
-      | 'Jcb'
-      | 'IkanoFinansDK'
-      | 'Maestro'
+    cardBrand: RawCardBrand
     maskedPan: string
     expiryDate: string
     paymentToken: string
